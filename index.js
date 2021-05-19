@@ -1,11 +1,12 @@
 class Card{
-    constructor(suit, value){
+    constructor(suit, value, num_value){
         this.suit = suit;
         this.value = value;
+        this.num_value = num_value;
     }
 
     show(){
-        return `${this.value} of ${this.suit}`;
+        return `${this.value} of ${this.suit} (Value: ${this.num_value})`;
     }
 }
 
@@ -13,14 +14,15 @@ class Deck{
     constructor(){
         this.cards = [];
         this.suits = ["Spades", "Clubs", "Hearts", "Diamonds"];
-        this.values = ["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"];
+        this.values = ["Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"];
+        this.num_values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
         this.build();
     }
 
     build(){
         for(let suit of this.suits){
-            for(let value of this.values){
-                this.cards.push(new Card(suit, value));
+            for(let value = 0, num_value = 0; value < this.values.length && num_value < this.num_values.length; value++, num_value++){
+                this.cards.push(new Card(suit, this.values[value], this.num_values[num_value]));
             }
         }
     }
@@ -46,7 +48,7 @@ class Deck{
     deal(){
         let card = this.cards.pop();
         console.log("======== DEAL A CARD ========");
-        console.log(`Dealt Card: ${card.value} of ${card.suit}`);
+        console.log(card.show());
     }
 
     reset(){
